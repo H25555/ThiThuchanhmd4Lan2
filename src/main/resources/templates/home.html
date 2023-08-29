@@ -434,6 +434,8 @@
         type: 'post',
         url: '/api/books/update/' + bookId,
         data: JSON.stringify(book)
+      }).done(() => {
+        $('#modalUpdate').modal('hide')
       })
 
   })
@@ -443,8 +445,13 @@
       url: "/api/books?search=" + key,
       type:"get"
     }).done((data) => {
-      console.log(data.author.name)
-      renderBook(data);
+      document.getElementById("tbCustomerBody").innerHTML = "";
+      data.forEach((book) => {
+
+        const str = renderBook(book);
+        $("#tbCustomerBody").prepend(str);
+      })
+
     })
   }
   handleClickAllEditButton();
@@ -453,4 +460,5 @@ getAllBooks();
   getAllCategory();
   getAllAuthor();
 </script>
-</bo
+</body>
+</html>
